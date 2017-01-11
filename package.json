@@ -20,6 +20,7 @@
   ],
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
     "babel-plugin-istanbul": "^3.1.2",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.14.0",
@@ -60,6 +61,10 @@
   },
   "engines": {
     "node": ">0.8.0"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": ["lib/"]
   },
   "nyc": {
     "include": [
