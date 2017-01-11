@@ -49,7 +49,7 @@
     "lib",
     "src"
   ],
-  "version": "0.0.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/lipp/with-jet"
@@ -64,7 +64,9 @@
   },
   "standard": {
     "parser": "babel-eslint",
-    "ignore": ["lib/"]
+    "ignore": [
+      "lib/"
+    ]
   },
   "nyc": {
     "include": [
