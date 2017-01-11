@@ -1,0 +1,95 @@
+{
+  "name": "with-jet",
+  "description": "React+redux helper for working with redux-jet",
+  "url": "https://github.com/lipp/with-jet",
+  "keywords": [
+    "jet",
+    "node-jet",
+    "redux-jet",
+    "redux",
+    "middleware",
+    "realtime",
+    "react"
+  ],
+  "author": "Gerhard Preuss <gelipp@gmail.com>",
+  "contributors": [
+    {
+      "name": "Gerhard Preuss",
+      "email": "gelipp@gmail.com"
+    }
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-istanbul": "^3.1.2",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.18.0",
+    "coveralls": "^2.11.12",
+    "cross-env": "^3.1.4",
+    "enzyme": "^2.7.0",
+    "istanbul": "^1.0.0-alpha.2",
+    "jsdom": "^9.9.1",
+    "mocha": "^3.2.0",
+    "node-jet": "^1.3.1",
+    "nyc": "^10.0.0",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-jet": "^1.4.0",
+    "redux-thunk": "^2.1.0",
+    "standard": "^8.0.0"
+  },
+  "main": "./lib",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lipp/with-jet"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "standard && cross-env NODE_ENV=test nyc mocha ./test/index.js",
+    "prepublish": "cross-env BABEL_ENV=commonjs babel src --out-dir lib"
+  },
+  "engines": {
+    "node": ">0.8.0"
+  },
+  "nyc": {
+    "include": [
+      "src/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "require": [
+      "./test/.setup.js"
+    ],
+    "all": true
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015",
+            "stage-0"
+          ]
+        }
+      ]
+    ]
+  },
+  "homepage": "https://github.com/lipp/with-jet",
+  "bugs": {
+    "url": "http://github.com/lipp/with-jet/issues",
+    "email": "gelipp@gmail.com"
+  }
+}
