@@ -28,7 +28,7 @@ const withJet = (mapStateToConnection, fetchers = {}) => {
       }
     }
 
-    componentWillMount () {
+    componentDidMount () {
       this.fetchAll(this.props.connection)
     }
 
