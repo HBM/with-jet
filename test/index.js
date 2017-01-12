@@ -114,7 +114,7 @@ describe('withJet', () => {
           type: 'SET_CONNECTION',
           connection: {url: 'ws://localhost:1999', user: 'admin', password: '333'}
         })
-      } else if (user === 'admin' && state.admin && !once) {
+      } else if (user === 'admin' && state.admin && state.foo && !once) {
         assert.equal(state.admin, 'secret')
         assert.equal(wrapper.find('h1').text(), 'secret123')
         assert(wasJohn)
