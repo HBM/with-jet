@@ -70,13 +70,35 @@ describe('withJet', () => {
     const connection = {url: 'ws://localhost:1999', user: 'john', password: '12345'}
     const ComponentWithJet = withJet(state => ({connection}), fetchers)(Container)
     const wrapper = mount(<ComponentWithJet store={store} />)
-    let once
-    store.subscribe(() => {
-      if (store.getState().foo && !once) {
+    const unsubscribe = store.subscribe(() => {
+      if (store.getState().foo) {
         assert.equal(store.getState().foo, 123)
         assert.equal(wrapper.find('h1').text(), '123')
+        unsubscribe()
         wrapper.unmount()
-        once = true
+        done()
+      }
+    })
+  })
+
+  it('should respect shouldRender if defined', done => {
+    const store = configureStore(combineReducers({foo: single('foo')}))
+    const fetchers = {
+      foo: {path: {startsWith: 'foo'}}
+    }
+    const connection = {url: 'ws://localhost:1999', user: 'john', password: '12345'}
+    const shouldRender = state => state.foo
+    const ComponentWithJet = withJet(state => ({connection}), fetchers, shouldRender)(Container)
+    const wrapper = mount(<ComponentWithJet store={store} />)
+    const unsubscribe = store.subscribe(() => {
+      if (!store.getState().foo) {
+        assert.equal(wrapper.find('h1').length, 0)
+      }
+      if (store.getState().foo) {
+        assert.equal(store.getState().foo, 123)
+        assert.equal(wrapper.find('h1').text(), '123')
+        unsubscribe()
+        wrapper.unmount()
         done()
       }
     })
