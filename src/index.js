@@ -7,8 +7,15 @@ const fetchActions = {
   unfetch
 }
 
-const withJet = (mapStateToConnection, fetchers = {}) => {
-  return Component => connect(mapStateToConnection, fetchActions)(class extends React.Component {
+const withJet = (mapStateToConnection, fetchers = {}, shouldRender) => {
+  const mapStateToProps = state => {
+    const {connection} = mapStateToConnection(state)
+    return {
+      connection,
+      shouldRender: shouldRender ? shouldRender(state) : true
+    }
+  }
+  return Component => connect(mapStateToProps, fetchActions)(class extends React.Component {
     fetchAll (connection) {
       Object.keys(fetchers).forEach(fetchId => {
         this.props.fetch(connection, fetchers[fetchId], fetchId)
@@ -37,6 +44,9 @@ const withJet = (mapStateToConnection, fetchers = {}) => {
     }
 
     render () {
+      if (!this.props.shouldRender) {
+        return null
+      }
       return <Component {...this.props} />
     }
   })
